@@ -1,3 +1,3 @@
 # Sudoku-Game
 
-Simple Sudoku generator built using HTML & JavaScript.
+Simple Sudoku Game built using HTML & JavaScript.
