@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Sudoku Game</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+</head>
+
+<style>
+
+#container{
+    display:grid;
+    grid-template-columns: repeat(9, 11%);
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+
+}
+
+input{
+    height: 60px;
+    text-align: center;
+    font-size: 130%;
+    font-family: poppins;
+    font-size: 40px;
+    color: black;
+    background-color: #C3D7EA;
+}
+
+</style>
+
+<body>
+
+<div id='container'>
+
+</div>
+    
+</body>
+</html>
+
+<script>
+
+var sudoku = [[], [], [], [], [], [], [], [], []];
+
+function createGrid()
+{
+    var myContainer = document.getElementById('container')
+
+    for(var i=0; i<9; i++){
+
+        for(var j=0; j<9; j++)
+        {
+
+        var myInput = document.createElement('input')
+        
+        myInput.id =  `${i}${j}`
+        
+        var number = Math.ceil(Math.random()*9)
+
+        myInput.row = i
+        myInput.col = j
+
+
+      if(isSafe(sudoku, i, j, number)){
+
+        myInput.value = number
+        myInput.readOnly= true
+
+        }
+
+        else{
+        
+        myInput.style.backgroundColor='white'
+         number=0
+         myInput.value = ''
+
+
+}
+        
+        sudoku[i][j]= number
+
+        myContainer.appendChild(myInput)
+        
+        myInput.oninput= function(e){
+
+            checkAnswer(sudoku, e)
+        }
+        
+    
+
+}
+}
+
+
+
+console.log('sudoku:', sudoku)
+
+}
+
+createGrid()
+
+function isSafe(grid, row, col, num){
+
+for(var x=0; x<9; x++){
+
+    if(grid[row][x]==num)
+    {
+
+        return false
+
+    }
+}
+for (var y=0; y<9; y++){
+
+    if(grid[y][col]==num){
+
+        return false
+
+    }
+
+}
+
+var startRow = row - (row%3)
+var startCol = col - (col%3)
+
+for(var m=0; m<3; m++){
+    for(var n=0; n<3; n++){
+
+        if (grid[m+startRow][n+startCol]==num){
+return false
+        }
+
+}
+}
+
+return true
+
+}
+
+function checkAnswer(grid, e){
+
+var row = e.target.row
+var col = e.target.col
+var num = Number(e.data)
+var id = e.target.id
+
+if(num==''){
+    return false
+}
+
+for(var x=0; x<9; x++){
+
+if(grid[row][x]==num)
+{
+    showColors('red',id)
+    
+    
+return false
+}
+}
+
+for (var y=0; y<9; y++){
+
+if(grid[y][col]==num){
+    showColors('red',id)
+    
+    
+return false
+}
+
+}
+
+var startRow = row - (row%3)
+var startCol = col - (col%3)
+
+for(var m=0; m<3; m++){
+for(var n=0; n<3; n++){
+
+    if (grid[m+startRow][n+startCol]==num){
+        showColors('red',id)
+
+
+return false
+    }
+
+}
+}
+
+showColors('green',id)
+return true
+
+}
+
+
+function showColors(color, id) {
+
+    var inp = document.getElementById(id)
+
+    if(color=='red')
+
+    {
+
+        inp.style.backgroundColor='red'
+
+    }
+    else
+    {
+        inp.style.backgroundColor='green'
+    }
+
+
+}
+
+</script>
