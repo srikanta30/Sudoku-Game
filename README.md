@@ -8,4 +8,4 @@ Simple weather app, built using HTML & JavaScript.
 
 
 
-![Sudoku Game](https://github.com/srikanta30/Weather-App/blob/main/Weather-App.png "Sudoku Game")
+![Sudoku Game](https://github.com/srikanta30/Sudoku-Game/blob/main/Sudoku-Game.png "Sudoku Game")
